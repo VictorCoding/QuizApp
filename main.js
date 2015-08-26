@@ -1,7 +1,5 @@
-/*jslint browser: true*/
-//var checkIt = {};
-
-//checkIt.pageLoad = function () {
+(function(){
+  
     "use strict";
 
     var radioOne1,
@@ -320,8 +318,5 @@
             }
         }
     }
-
-
-
-//};
-//checkIt.pageLoad();
+    
+})();
