@@ -50,16 +50,17 @@
     
     function buildRadios(){
       var questions = [firstQA, secondQA, thirdQA, fourthQA, fifthQA];      
-      for(var i = 0; i < 6; i++){
+      for(var i = 0; i < 5; i++){
         theBuilds.push(createRadiosAndLabels(questions[i].labelsText, questions[i].correctAnswer, questions[i].youDumb));
       }
+      console.log(theBuilds);
     }
         
     function createRadiosAndLabels(labelsText, correctAnswer, youDumb){
       var radioButtons = [],
           labels = [];
                             
-      for(var i = 0; i < 5; i++){
+      for(var i = 0; i < 4; i++){
         //Create the labels      
         var label = document.getElementById('label' + i).innerHTML = labelsText[i];
         labels.push(label);
@@ -93,15 +94,15 @@
     function setUpQuestionAndDisplay(questionText, radioButtons, labelsText, backColor, imageUrl){      
       
       document.getElementById('QuestionText').innherHTML = questionText;   
-      document.getElementById("label1").innerHTML = labelsText[0];
-      document.getElementById("label2").innerHTML = labelsText[1];
-      document.getElementById("label3").innerHTML = labelsText[2];
-      document.getElementById("label4").innerHTML = labelsText[3];       
-      document.getElementById("radioButton1").appendChild(radioButtons[0]);
-      document.getElementById("radioButton2").appendChild(radioButtons[1]);
-      document.getElementById("radioButton3").appendChild(radioButtons[2]);
-      document.getElementById("radioButton4").appendChild(radioButtons[3]);            
-      document.getElementById("visual").appendChild(image1);            
+      document.getElementById("label0").innerHTML = labelsText[0];
+      document.getElementById("label1").innerHTML = labelsText[1];
+      document.getElementById("label2").innerHTML = labelsText[2];
+      document.getElementById("label3").innerHTML = labelsText[3];       
+      document.getElementById("radioButton0").appendChild(radioButtons[0]);
+      document.getElementById("radioButton1").appendChild(radioButtons[1]);
+      document.getElementById("radioButton2").appendChild(radioButtons[2]);
+      document.getElementById("radioButton3").appendChild(radioButtons[3]);            
+      document.getElementById("visual").appendChild(image);            
       document.body.style.background = backColor;
       image.src = imageUrl;
       
@@ -125,17 +126,17 @@
         document.body.style.background = "gray";
 
     }    
-
+    setUpQuestionAndDisplay(questions[0], theBuilds[0].radioButtons, theBuilds[0].labels, backColors[0], questionImages[0]);
     function trigger() {
       //before going to next question let's do some checking
       validateRadios();
       //Let's keep track of what question we're on.
-      var questionNumba = 0;                
+      var questionNumba = 1;                
       
       //Keep flipping through questions
       //then at the end display results.
       if(questionNumba < 6){
-        setUpQuestionAndDisplay(questions[questionNumba], theBuilds[i].radioButtons, theBuilds[i].labelsText, backColors[i], questionImages[i]);
+        setUpQuestionAndDisplay(questions[questionNumba], theBuilds[questionNumba].radioButtons, theBuilds[questionNumba].labels, backColors[questionNumba], questionImages[questionNumba]);
       } else {
         displayResults();
       }
@@ -143,15 +144,18 @@
     }
 
     function validateRadios() {
+      var foundYou = false;
         var radios = document.getElementsByName("question");
         for (var t = 0; t < 4; t++) {
             if (radios[t].checked) {
-                trigger();
-                return true;
-            } else {
-                alert("Please choose an answer.");
-                return false;
-            }
+                // trigger();
+                foundYou = true;
+            } 
+            
+        }
+        if(!foundYou){
+            alert("Please choose an answer.");
+            return;
         }
     }
 
